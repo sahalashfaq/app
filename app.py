@@ -10,7 +10,7 @@ import io
 
 # Set page title and layout
 st.set_page_config(page_title="Email Validator", layout="wide")
-st.title("📧 Email Validator Tool")
+st.title("Email Validator Tool")
 st.write("Upload a CSV file with an 'Email' column to validate email addresses.")
 
 # Initialize session state
@@ -159,7 +159,7 @@ def process_csv(uploaded_file):
     st.session_state.download_ready = True
 
 # Streamlit file upload
-uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
+uploaded_file = st.file_uploader("",type=["csv"])
 
 if uploaded_file is not None and not st.session_state.file_processed:
     process_csv(uploaded_file)
