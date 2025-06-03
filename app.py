@@ -10,7 +10,6 @@ import io
 
 # Set page title and layout
 st.set_page_config(page_title="Email Validator", layout="wide")
-st.title("Email Validator Tool")
 st.write("Upload a CSV file with an 'Email' column to validate email addresses.")
 
 # Initialize session state
