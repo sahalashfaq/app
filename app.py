@@ -19,7 +19,7 @@ def load_css():
 
 load_css()
 
-st.set_page_config(page_title="Email Validator Pro", layout="wide")
+st.set_page_config(page_title="Email Validator Pro", layout="centered")
 st.write("Upload a CSV with an 'Email' column. The system will validate and show progress in real time.")
 
 # Disposable domain loader
