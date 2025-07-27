@@ -170,7 +170,7 @@ async def process_csv(file):
     st.session_state.ready = True
 
 # File upload
-uploaded = st.file_uploader("Upload CSV",type=["csv"])
+uploaded = st.file_uploader("Email Validator",type=["csv"])
 
 if uploaded and 'ready' not in st.session_state:
     asyncio.run(process_csv(uploaded))
