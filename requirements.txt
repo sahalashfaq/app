@@ -4,3 +4,4 @@ dnspython
 requests
 email-validator
 tqdm
+asyncio
