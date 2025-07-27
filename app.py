@@ -20,7 +20,6 @@ def load_css():
 load_css()
 
 st.set_page_config(page_title="Email Validator Pro", layout="wide")
-st.title("📩 Fast Email Validator")
 st.write("Upload a CSV with an 'Email' column. The system will validate and show progress in real time.")
 
 # Disposable domain loader
@@ -172,7 +171,7 @@ async def process_csv(file):
     st.session_state.ready = True
 
 # File upload
-uploaded = st.file_uploader("Upload CSV", type=["csv"])
+uploaded = st.file_uploader(type=["csv"])
 
 if uploaded and 'ready' not in st.session_state:
     asyncio.run(process_csv(uploaded))
