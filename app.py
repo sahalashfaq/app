@@ -149,7 +149,6 @@ async def process_csv(file):
         speed = (i + 1) / elapsed if elapsed > 0 else 0
         remaining = total - (i + 1)
         est_time = int(remaining / speed) if speed > 0 else 0
-
         status_box.markdown(f"""
         **Progress:** {i+1}/{total}  
         Valid: {valid_count}  
