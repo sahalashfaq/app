@@ -184,6 +184,6 @@ if st.session_state.get("ready"):
         file_name="validated_results.csv",
         mime="text/csv"
     )
-    if st.button("Validate Another File"):
-        st.session_state.clear()
-        st.experimental_rerun()
+    # if st.button("Validate Another File"):
+    #     st.session_state.clear()
+    #     st.experimental_rerun()
