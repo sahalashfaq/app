@@ -255,3 +255,7 @@ code{
 .st-bn{
     background-color: var(--indigo-color);
 }
+div[data-baseweb="notification"]{
+    background:none !important;
+    padding:0 !important;
+}
