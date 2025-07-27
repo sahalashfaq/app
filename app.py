@@ -8,6 +8,16 @@ from email_validator import validate_email, EmailNotValidError
 from tqdm import tqdm  # Progress bar
 import io
 
+# Load CSS
+def load_css():
+    try:
+        with open("style.css") as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    except:
+        st.warning("No CSS loaded.")
+
+load_css()
+
 # Set page title and layout
 st.set_page_config(page_title="Email Validator", layout="wide")
 st.write("Upload a CSV file with an 'Email' column to validate email addresses.")
