@@ -132,7 +132,7 @@ async def process_csv(file):
     valid_count, invalid_count = 0, 0
     start_time = time.time()
 
-    st.info(f"🔍 Total Emails to Process: {total}")
+    st.info(f"Total Emails to Process: {total}")
     progress = st.progress(0)
     status_box = st.empty()
     result = []
@@ -152,11 +152,11 @@ async def process_csv(file):
 
         status_box.markdown(f"""
         **Progress:** {i+1}/{total}  
-        ✅ Valid: {valid_count}  
-        ❌ Invalid: {invalid_count}  
-        ⏳ Remaining: {remaining}  
-        🚀 Speed: {speed:.2f} emails/sec  
-        ⏱ Estimated Time Left: {est_time} sec
+        Valid: {valid_count}  
+        Invalid: {invalid_count}  
+        Remaining: {remaining}  
+        Speed: {speed:.2f} emails/sec  
+        Estimated Time Left: {est_time} sec
         """)
 
         progress.progress((i + 1) / total)
@@ -178,13 +178,13 @@ if uploaded and 'ready' not in st.session_state:
 
 # Download
 if st.session_state.get("ready"):
-    st.success("✅ Processing Complete!")
+    st.success("Processing Complete!")
     st.download_button(
-        "📥 Download Results CSV",
+        "Download Results CSV",
         st.session_state.output_csv,
         file_name="validated_results.csv",
         mime="text/csv"
     )
-    if st.button("🔄 Validate Another File"):
+    if st.button("Validate Another File"):
         st.session_state.clear()
         st.experimental_rerun()
