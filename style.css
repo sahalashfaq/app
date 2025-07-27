@@ -259,3 +259,5 @@ div[data-baseweb="notification"]{
     background:none !important;
     padding:0 !important;
 }
+p,span{
+font-weight:500 !important;
