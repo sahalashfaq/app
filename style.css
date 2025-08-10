@@ -252,13 +252,21 @@ code{
     padding: 10px;
     margin-right: 10px;
 }
-.st-bn{
-    background-color: var(--indigo-color);
+div[data-testid="stNumberInputContainer"] {
+    border:3px solid rgba(128, 128, 128, 0.082) !important;
+    outline: none;
 }
-div[data-baseweb="notification"]{
-    background:none !important;
-    padding:0 !important;
+div[data-testid="stNumberInputContainer"] input{
+    background: var(--white);
 }
-p,span{
-font-weight:500 !important;
-    font-size:small;
+button[data-testid="stNumberInputStepUp"]{
+    background: var(--black) !important;
+    
+}
+button[data-testid="stNumberInputStepDown"]{
+    background: var(--indigo-color) !important;
+    
+}
+button[data-testid="stNumberInputStepUp"] * ,button[data-testid="stNumberInputStepDown"] *{
+    color: var(--white);
+}
