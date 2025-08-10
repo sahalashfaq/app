@@ -9,6 +9,8 @@ import time
 from email_validator import validate_email, EmailNotValidError
 import io
 
+st.set_page_config(page_title="Email Validator Pro", layout="centered")
+
 # Load CSS
 def load_css():
     try:
@@ -19,8 +21,7 @@ def load_css():
 
 load_css()
 
-st.set_page_config(page_title="Email Validator Pro", layout="centered")
-st.write("Upload a CSV with an 'Email' column. The system will validate and show progress in real time.")
+st.write("Upload a CSV and select the column containing email addresses for validation.")
 
 # Disposable domain loader
 @st.cache_data
@@ -120,14 +121,15 @@ def validate_email_address(email):
         "Deliverability": status
     }
 
-# CSV Processor
-async def process_csv(file):
+# CSV Processor with column selection
+async def process_csv(file, email_column):
+    file.seek(0)  # reset pointer
     df = pd.read_csv(file)
-    if 'Email' not in df.columns:
-        st.error("CSV file must have an 'Email' column.")
+    if email_column not in df.columns:
+        st.error(f"CSV file must have the '{email_column}' column.")
         return
 
-    emails = df["Email"].dropna().unique()
+    emails = df[email_column].dropna().unique()
     total = len(emails)
     valid_count, invalid_count = 0, 0
     start_time = time.time()
@@ -161,7 +163,7 @@ async def process_csv(file):
         progress.progress((i + 1) / total)
 
     final_df = pd.DataFrame(result)
-    full = pd.merge(df, final_df, on="Email", how="left")
+    full = pd.merge(df, final_df, left_on=email_column, right_on="Email", how="left")
 
     buffer = io.StringIO()
     full.to_csv(buffer, index=False)
@@ -169,13 +171,23 @@ async def process_csv(file):
     st.session_state.output_csv = buffer.getvalue()
     st.session_state.ready = True
 
-# File upload
-uploaded = st.file_uploader("Email Validator",type=["csv"])
+# File upload and column selection
+uploaded = st.file_uploader("Upload CSV", type=["csv"])
 
-if uploaded and 'ready' not in st.session_state:
-    asyncio.run(process_csv(uploaded))
+if uploaded:
+    uploaded.seek(0)  # reset pointer before preview
+    try:
+        df_preview = pd.read_csv(uploaded, nrows=5)
+        email_column = st.selectbox("Select the Email Column", options=df_preview.columns)
 
-# Download
+        if st.button("Start Validation"):
+            with st.spinner("Processing... Please wait"):
+                uploaded.seek(0)  # reset pointer for full read
+                asyncio.run(process_csv(uploaded, email_column))
+    except pd.errors.EmptyDataError:
+        st.error("The uploaded CSV file is empty or invalid.")
+
+# Download button after processing
 if st.session_state.get("ready"):
     st.success("Processing Complete!")
     st.download_button(
@@ -184,6 +196,3 @@ if st.session_state.get("ready"):
         file_name="validated_results.csv",
         mime="text/csv"
     )
-    # if st.button("Validate Another File"):
-    #     st.session_state.clear()
-    #     st.experimental_rerun()
