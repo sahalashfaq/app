@@ -21,7 +21,7 @@ def load_css():
 
 load_css()
 
-st.write("Upload a CSV and select the column containing email addresses for validation.")
+st.write("Valdate Your Extracted Emails")
 
 # Disposable domain loader
 @st.cache_data
